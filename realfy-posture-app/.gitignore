@@ -1,1 +1,43 @@
-pose_detection/venv/
+# Virtual environments anywhere
+venv/
+ENV/
+env/
+
+# Node.js
+frontend/node_modules/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables
+*.env
+
+# macOS
+.DS_Store
+
+# DLLs and other large binaries
+*.dll
+*.so
+*.dylib
+*.pyd
+
+# Model files (if any)
+*.h5
+*.tflite
+*.pt
+*.pb
+*.onnx
+
+# Video/image files (if not desired in repo)
+*.mp4
+*.avi
+*.mov
+*.png
+*.jpg
+*.jpeg
+
+# Logs
+*.log
