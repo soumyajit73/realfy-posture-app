@@ -124,11 +124,19 @@ function App() {
 
     const frames = analysisResults.frame_results;
     const totalFrames = frames.length;
-    const badFrames = frames.filter((f) => f.bad_posture).length;
-    const percentageBad = ((badFrames / totalFrames) * 100).toFixed(2);
+    const dominantPosture = analysisResults.posture_type;
 
+    // ✅ Only include frames matching the dominant posture
+    const filteredFrames = frames.filter(
+      (f) => f.posture_type === dominantPosture
+    );
+
+    const badFrames = filteredFrames.filter((f) => f.bad_posture).length;
+    const percentageBad = ((badFrames / filteredFrames.length) * 100).toFixed(2);
+
+    // ✅ Count issues from relevant frames only
     const issueCounts = {};
-    frames.forEach((f) => {
+    filteredFrames.forEach((f) => {
       (f.flags || []).forEach((flag) => {
         issueCounts[flag] = (issueCounts[flag] || 0) + 1;
       });
@@ -149,7 +157,7 @@ function App() {
           <Typography>
             Detected Posture Type: <b>{analysisResults.posture_type}</b>
           </Typography>
-          <Typography>Total Frames Analyzed: {totalFrames}</Typography>
+          <Typography>Total Frames Analyzed: {filteredFrames.length}</Typography>
           <Typography>Frames with Bad Posture: {badFrames}</Typography>
           <Typography>Percentage Bad Posture: {percentageBad}%</Typography>
         </Paper>
